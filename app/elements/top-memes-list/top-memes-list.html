@@ -23,21 +23,11 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         display: block;
       }
 
-      .no-more-msg {
-        min-height: 40px;
-        font-family: 'Roboto Slab';
-        font-size: 20px;
-        color: #BDBDBD;
-        cursor: default;
-        padding-left: 67px;
-        -webkit-user-select: none;
-        -moz-user-select: none;
-        -ms-user-select: none;
-        user-select: none;
-      }
+      /**
+       * Style for the top votable-item
+       */
+      sb-votable-item:first-of-type {
 
-      todo-item:first-of-type {
-        margin-top: 0;
       }
 
       todo-item {
@@ -52,8 +42,6 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
           last-response="{{memesResponse}}"
           debounce-duration="300"></iron-ajax>
 
-    <p class="no-more-msg" hidden="[[_todosEmpty(todos.length)]]">No more todos! You're all caught up</p>
-
     <!-- <template is="dom-repeat"
               items="{{todos}}"
               as="todo"
@@ -66,7 +54,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     <sp-voting-grid id="top-memes" name="Lightning talks top memes">
       <template is="dom-repeat" items="[[memesResponse.memes]]" as="meme">
         <sb-votable-item id="voting_opt_[[index]]" name="Voting Option [[index]]">
-          <iron-image src="[[meme.url]]"></iron-image>
+          <iron-image src="[[meme.url]]" style="width:300px; height:300px;" sizing="contain"></iron-image>
         </sb-votable-item>
       </template>
     </sp-voting-grid>
@@ -86,29 +74,6 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
           value: 'all'
         }
 
-      },
-
-      _todosEmpty: function(length) {
-        return !!length;
-      },
-
-      _computeFilter: function(filterBy) {
-        if (filterBy) {
-
-          // If filterBy is 'all', return a filter that always returns
-          // the todo
-          if (filterBy === 'all') {
-            return function() {
-              return true;
-            };
-          }
-
-          // Handle 'completed', or its inverse, 'active'
-          var ifComplete = (filterBy === 'completed');
-          return function(item) {
-            return item.isComplete === ifComplete;
-          };
-        }
       }
 
     });

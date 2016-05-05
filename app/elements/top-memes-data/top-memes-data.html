@@ -21,7 +21,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     </style>
 
     <firebase-collection location="{{userLocation}}"
-                         data="{{fbTodos}}"
+                         data="{{fbMemes}}"
                          on-firebase-value="_firebaseLoaded">
     </firebase-collection>
 
@@ -32,7 +32,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
          localstorage, it should not nullify everything saved in Firebase. -->
     <iron-localstorage name="top-memes"
                        on-iron-localstorage-load="_backupLoaded"
-                       value="{{backupTodos}}">
+                       value="{{backupMemes}}">
     </iron-localstorage>
 
   </template>
@@ -64,17 +64,19 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         }
       },
 
+      //FIXME: Switch all of this over to be vote based vs memes
+      // ie: instead of this.memes..should be this.memeVotes
       _firebaseLoaded: function() {
         this._firebaseConnected = true;
-        this.todos = this.fbTodos;
-        this.backupTodos = this.fbTodos;
-        this.linkPaths('fbTodos', 'todos');
-        this.linkPaths('backupTodos', 'todos');
+        this.memes = this.fbMemes;
+        this.backupMemes = this.fbMemes;
+        this.linkPaths('fbMemes', 'memes');
+        this.linkPaths('backupMemes', 'memes');
       },
 
       _backupLoaded: function() {
         if (!this._firebaseConnected) {
-          this.todos = this.backupTodos.slice();
+          this.memes = this.backupMemes.slice();
         }
       }
 
