@@ -8,6 +8,8 @@ Code distributed by Google as part of the polymer project is also
 subject to an additional IP rights grant found at http://polymer.github.io/PATENTS.txt
 -->
 
+<link rel="import" href="../../bower_components/iron-ajax/iron-ajax.html">
+<link rel="import" href="../../bower_components/iron-image/iron-image.html">
 <link rel="import" href="../todo-item/todo-item.html">
 <link rel="import" href="../../bower_components/sb-voting-grid/sb-voting-grid.html">
 <link rel="import" href="../../bower_components/sb-voting-grid/sb-votable-item.html">
@@ -42,6 +44,13 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         margin: 16px 0;
       }
     </style>
+    <iron-ajax
+          auto
+          url="https://enigmatic-hamlet-75858.herokuapp.com/memes"
+          params='{"category":"sb-memes"}'
+          handle-as="json"
+          last-response="{{memesResponse}}"
+          debounce-duration="300"></iron-ajax>
 
     <p class="no-more-msg" hidden="[[_todosEmpty(todos.length)]]">No more todos! You're all caught up</p>
 
@@ -55,12 +64,11 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
     <!-- TODO: hook this up to list of available memes and render votable-items for each -->
     <sp-voting-grid id="top-memes" name="Lightning talks top memes">
-      <sb-votable-item id="voting_opt_1" name="Voting Option 1">
-        <h2>Votable item 1</h2>
-      </sb-votable-item>
-      <sb-votable-item id="voting_opt_2" name="Voting Option 2">
-        <h2>Votable item 2</h2>
-      </sb-votable-item>
+      <template is="dom-repeat" items="[[memesResponse.memes]]" as="meme">
+        <sb-votable-item id="voting_opt_[[index]]" name="Voting Option [[index]]">
+          <iron-image src="[[meme.url]]"></iron-image>
+        </sb-votable-item>
+      </template>
     </sp-voting-grid>
 
   </template>
