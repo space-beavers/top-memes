@@ -170,9 +170,9 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         <!-- Main Content -->
         <div class="content">
 
-          <top-memes-list todos="{{todos}}"
+          <top-memes-list memeVotes="{{memeVotes}}"
                      filter-by="{{route}}"
-                     on-delete-todo="deleteTodo">
+                     on-sb-voting-grid-up-vote="addMemeVote">
           </top-memes-list>
 
           <!-- <todo-input on-add-todo="addTodo"></todo-input> -->
@@ -191,15 +191,21 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
         route: String,
 
-        todos: Array
+        memeVotes: {
+          type: Array,
+          value: [],
+          notify: true
+        }
 
       },
 
-      addTodo: function(e) {
-        this.push('todos', {
-          label: e.detail.value,
-          isComplete: false
+      addMemeVote: function(e) {
+        console.log('add meme vote called!');
+        this.push('memeVotes', {
+          id: e.detail.id,
+          name: e.detail.name
         });
+        console.log('memeVotes now', this.memeVotes);
       },
 
       // deleteTodo: function(e) {

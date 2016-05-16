@@ -21,7 +21,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     </style>
 
     <firebase-collection location="{{userLocation}}"
-                         data="{{fbMemes}}"
+                         data="{{fbMemesVotes}}"
                          on-firebase-value="_firebaseLoaded">
     </firebase-collection>
 
@@ -43,7 +43,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
       properties: {
 
-        todos: {
+        memeVotes: {
           notify: true
         },
 
@@ -64,19 +64,17 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         }
       },
 
-      //FIXME: Switch all of this over to be vote based vs memes
-      // ie: instead of this.memes..should be this.memeVotes
       _firebaseLoaded: function() {
         this._firebaseConnected = true;
-        this.memes = this.fbMemes;
-        this.backupMemes = this.fbMemes;
-        this.linkPaths('fbMemes', 'memes');
-        this.linkPaths('backupMemes', 'memes');
+        this.memeVotes = this.fbMemeVotes;
+        this.backupMemes = this.fbMemeVotes;
+        this.linkPaths('fbMemesVotes', 'memeVotes');
+        this.linkPaths('backupMemes', 'memeVotes');
       },
 
       _backupLoaded: function() {
         if (!this._firebaseConnected) {
-          this.memes = this.backupMemes.slice();
+          this.memeVotes = this.backupMemes.slice();
         }
       }
 

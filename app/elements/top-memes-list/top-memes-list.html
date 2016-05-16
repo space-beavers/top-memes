@@ -29,10 +29,6 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       sb-votable-item:first-of-type {
 
       }
-
-      todo-item {
-        margin: 16px 0;
-      }
     </style>
     <iron-ajax
           auto
@@ -51,13 +47,13 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     </template> -->
 
     <!-- TODO: hook this up to list of available memes and render votable-items for each -->
-    <sp-voting-grid id="top-memes" name="Lightning talks top memes">
+    <sb-voting-grid id="top-memes" name="Lightning talks top memes">
       <template is="dom-repeat" items="[[memesResponse.memes]]" as="meme">
         <sb-votable-item id="voting_opt_[[index]]" name="Voting Option [[index]]">
           <iron-image src="[[meme.url]]" style="width:300px; height:300px;" sizing="contain"></iron-image>
         </sb-votable-item>
       </template>
-    </sp-voting-grid>
+    </sb-voting-grid>
 
   </template>
   <script>
@@ -67,7 +63,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
       properties: {
 
-        todos: Array,
+        memeVotes: Array,
 
         filterBy: {
           type: String,
