@@ -199,13 +199,19 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
       },
 
+      listeners: {
+        'meme-votes-changed': '_memeVotesChanged'
+      },
+
+      _memeVotesChanged: function(event) {
+        console.log('meme votes has changed..', event.detail);
+      },
+
       addMemeVote: function(e) {
-        console.log('add meme vote called!');
         this.push('memeVotes', {
           id: e.detail.id,
           name: e.detail.name
         });
-        console.log('memeVotes now', this.memeVotes);
       },
 
       // deleteTodo: function(e) {

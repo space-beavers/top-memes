@@ -30,13 +30,13 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
       }
     </style>
-    <iron-ajax
+    <!-- <iron-ajax
           auto
           url="https://enigmatic-hamlet-75858.herokuapp.com/memes"
           params='{"category":"sb-memes"}'
           handle-as="json"
           last-response="{{memesResponse}}"
-          debounce-duration="300"></iron-ajax>
+          debounce-duration="300"></iron-ajax> -->
 
     <!-- <template is="dom-repeat"
               items="{{todos}}"
@@ -48,11 +48,20 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
     <!-- TODO: hook this up to list of available memes and render votable-items for each -->
     <sb-voting-grid id="top-memes" name="Lightning talks top memes">
-      <template is="dom-repeat" items="[[memesResponse.memes]]" as="meme">
+      <!-- <template is="dom-repeat" items="[[memesResponse.memes]]" as="meme">
         <sb-votable-item id="voting_opt_[[index]]" name="Voting Option [[index]]">
           <iron-image src="[[meme.url]]" style="width:300px; height:300px;" sizing="contain"></iron-image>
         </sb-votable-item>
-      </template>
+      </template> -->
+      <sb-votable-item id="voting_opt_1" name="Voting Option 1">
+        <iron-image src="http://placehold.it/350x150" style="width:300px; height:300px;" sizing="contain"></iron-image>
+      </sb-votable-item>
+      <sb-votable-item id="voting_opt_2" name="Voting Option 2">
+        <iron-image src="http://placehold.it/350x150" style="width:300px; height:300px;" sizing="contain"></iron-image>
+      </sb-votable-item>
+      <sb-votable-item id="voting_opt_3" name="Voting Option 3">
+        <iron-image src="http://placehold.it/350x150" style="width:300px; height:300px;" sizing="contain"></iron-image>
+      </sb-votable-item>
     </sb-voting-grid>
 
   </template>

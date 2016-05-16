@@ -20,7 +20,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
     </style>
 
-    <firebase-collection location="{{userLocation}}"
+    <firebase-collection id="fbColl" location="{{userLocation}}"
                          data="{{fbMemesVotes}}"
                          on-firebase-value="_firebaseLoaded">
     </firebase-collection>
@@ -44,6 +44,8 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       properties: {
 
         memeVotes: {
+          type: Array,
+          value: [],
           notify: true
         },
 
@@ -57,11 +59,19 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
       },
 
+      listeners: {
+        'meme-votes-changed': '_memeVotesChanged'
+      },
+
       // Setup user ref in firebase if auth succeeds
       _userChanged: function(user) {
         if (user) {
           this.userLocation = [this.location, 'users', this.user.uid].join('/');
         }
+      },
+
+      _memeVotesChanged: function(event) {
+        console.log('data - meme votes has changed..', event);
       },
 
       _firebaseLoaded: function() {
@@ -70,6 +80,8 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         this.backupMemes = this.fbMemeVotes;
         this.linkPaths('fbMemesVotes', 'memeVotes');
         this.linkPaths('backupMemes', 'memeVotes');
+
+        this.$.fbColl.add(this.memeVotes);
       },
 
       _backupLoaded: function() {
